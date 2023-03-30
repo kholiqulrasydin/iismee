@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -23,6 +23,8 @@ class User extends Authenticatable
         'password',
         'g_id',
         'num',
+        'status',
+        'p_alt'
     ];
 
     /**

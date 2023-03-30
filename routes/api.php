@@ -24,7 +24,25 @@ Route::middleware('auth:api')->group( function () {
         return response()->json('Successfully authenticated', 200);
     });
 
+    Route::group(['prefix' => 'media'], function() {
+        Route::post('/upload', 'App\Http\Controllers\MediaController@upload_media');
+        Route::post('/download', 'App\Http\Controllers\MediaController@fetch_media');
+        Route::post('/delete', 'App\Http\Controllers\MediaController@delete');
+    });
+
+    Route::group(['prefix' => 'presention'], function() {
+        Route::get('/fetch', 'App\Http\Controllers\PresentionController@fetch_all');
+        Route::post('/present', 'App\Http\Controllers\PresentionController@add_presention');
+    });
+
+    Route::group(['prefix' => 'proposal'], function() {
+        Route::get('/fetch', 'App\Http\Controllers\ProposalController@fetch_data');
+        Route::post('/add', 'App\Http\Controllers\ProposalController@store');
+        Route::post('/update', 'App\Http\Controllers\ProposalController@update');
+    });
+
 });
+
 
 Route::post('/login', 'App\Http\Controllers\Authentication@login');
 Route::post('/register', 'App\Http\Controllers\Authentication@register');

@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+Route::get('/google_sign_in/redirect', 'App\Http\Controllers\Authentication@signInWithGoogleRedirect');
+Route::get('/google_sign_in/callback', 'App\Http\Controllers\Authentication@signInWithGoogleCallback');
