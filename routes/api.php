@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group( function () {
     Route::group(['prefix' => 'presention'], function() {
         Route::get('/fetch', 'App\Http\Controllers\PresentionController@fetch_all');
         Route::post('/present', 'App\Http\Controllers\PresentionController@add_presention');
+        Route::post('/delete', 'App\Http\Controllers\PresentionController@delete');
     });
 
     Route::group(['prefix' => 'proposal'], function() {

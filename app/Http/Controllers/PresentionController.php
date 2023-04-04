@@ -11,7 +11,7 @@ class PresentionController extends Controller
     public function fetch_all(){
 
         try {
-            $data = Presention::where('id', Auth::user()->id)->get();
+            $data = Presention::where('mahasiswa_id', Auth::user()->id)->get();
             return response()->json([
                 'responseData' => [
                     'presentions' => $data
@@ -45,9 +45,12 @@ class PresentionController extends Controller
             $presention->isLate = $request['isLate'];
             $presention->save();
 
+            $data = Presention::where('mahasiswa_id', Auth::user()->id)->orderBy('created_at', 'desc')->first();
+
             return response()->json([
                 'responseData' => [
-                    'msg' => 'success presenting self'
+                    'msg' => 'success presenting self',
+                    'latestData' => $data
                 ],
                 'statusCode' => 200
             ], 200);
@@ -61,6 +64,30 @@ class PresentionController extends Controller
             ], 500);
         }
 
+    }
+
+    public function delete(Request $request)
+    {
+        try {
+            $request->validate([
+                'docId' => 'required',
+            ]);
+            Presention::where('id', $request['docId'])->delete();
+            return response()->json([
+                'responseData' => [
+                    'msg' => 'success deleting presention data'
+                ],
+                'statusCode' => 200
+            ], 200);
+        } catch (\Exception $th) {
+            return response()->json([
+                'responseData' => [
+                    'msg' => 'failed to deleting presention data',
+                    'errorlog' => $th->getMessage()
+                ],
+                'statusCode' => 500
+            ], 500);
+        }
     }
 
 }
