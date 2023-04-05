@@ -24,6 +24,10 @@ Route::middleware('auth:api')->group( function () {
         return response()->json('Successfully authenticated', 200);
     });
 
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('/data', 'App\Http\Controllers\MediaController@getUserData');
+    });
+
     Route::group(['prefix' => 'media'], function() {
         Route::post('/upload', 'App\Http\Controllers\MediaController@upload_media');
         Route::post('/download', 'App\Http\Controllers\MediaController@fetch_media');
@@ -38,8 +42,14 @@ Route::middleware('auth:api')->group( function () {
 
     Route::group(['prefix' => 'proposal'], function() {
         Route::get('/fetch', 'App\Http\Controllers\ProposalController@fetch_data');
-        Route::post('/add', 'App\Http\Controllers\ProposalController@store');
+        Route::post('/store', 'App\Http\Controllers\ProposalController@store');
         Route::post('/update', 'App\Http\Controllers\ProposalController@update');
+    });
+
+    Route::group(['prefix' => 'activity'], function() {
+        Route::get('/delete', 'App\Http\Controllers\ActivityController@delete');
+        Route::post('/store', 'App\Http\Controllers\ActivityController@store');
+        Route::get('/check', 'App\Http\Controllers\ActivityController@check_if_exists');
     });
 
 });

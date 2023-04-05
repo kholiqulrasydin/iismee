@@ -77,11 +77,11 @@ class MediaController extends  Controller
             switch ($file_context) {
                 
                 case 'proposal':
-                    Proposal::where('upload_by', Auth::user()->id)->update([
+                    Proposal::where('uploaded_by', Auth::user()->id)->update([
                         'fileName' => $fileName
                     ]);
                     $msg = 'success updating proposal file';
-                    $updatedData = Proposal::where('upload_by', Auth::user()->id)->first();
+                    $updatedData = Proposal::where('uploaded_by', Auth::user()->id)->first();
                     break;
                 
                 case 'logbook':

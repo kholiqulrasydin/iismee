@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -26,5 +26,5 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::get('/google_sign_in/redirect', 'App\Http\Controllers\Authentication@signInWithGoogleRedirect');
-Route::get('/google_sign_in/callback', 'App\Http\Controllers\Authentication@signInWithGoogleCallback');
+// Route::get('/google_sign_in/redirect', 'App\Http\Controllers\Authentication@signInWithGoogleRedirect');
+// Route::get('/google_sign_in/callback', 'App\Http\Controllers\Authentication@signInWithGoogleCallback');
